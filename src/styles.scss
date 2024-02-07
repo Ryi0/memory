@@ -1,18 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;900&display=swap');
 
-$text: #E8EEF7;
-$background: #060E1A;
-$primary: #86B1EC;
-$secondary: #0C4593;
-$accent: #22EC34;
+$text: #e9f6e6;
+$background: #282828;
+$primary: #9fda92;
+$secondary: #398727;
+$accent: #62d349;
+
+
 
 body{
   color: $text;
-  background-color: #060E1A;
+  background-color: $background;
 }
 
 app-square{
+  .selectedItem{
+    background-color: aqua;
+  }
   font-family: 'Roboto', sans-serif;
 
   font-weight: bolder;

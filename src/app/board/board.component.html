@@ -7,14 +7,8 @@
   [cardContent]="tile.toString()"
   [id]="tile.uniqueId"
   [squareUniqueId]="tile.uniqueId"
-
+  [isSelected]="tile.selectedProp"
 >
-
-<!--*ngFor="let tile of allTheTiles; let i= index"-->
-<!--[cardContent]="tile.toString()"-->
-<!--[id]="tile.uniqueId"-->
-<!--[squareUniqueId]="tile.uniqueId"-->
-<!--(dblclick)="clickEventCardSelector(tile.uniqueId)"-->
 </app-square>
     </ng-container>
   </div>
