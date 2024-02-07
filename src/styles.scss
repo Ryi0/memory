@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;900&display=swap');
 
-$text: #D1ECEF;
-$background: #393234;
-$primary: #ffeed6;
-$secondary: #790c30;
-$accent: #00ff8c;
+$text: #E8EEF7;
+$background: #060E1A;
+$primary: #86B1EC;
+$secondary: #0C4593;
+$accent: #22EC34;
 
 body{
-  color: #CCC59E;
-  background-color: #393234;
+  color: $text;
+  background-color: #060E1A;
 }
 
 app-square{
@@ -23,10 +23,10 @@ app-square{
     justify-content: center;
     align-items: center;
 
-    background-color: #0B2897;
+    background-color: $secondary;
     box-shadow: inset 0 0px 32px 0 rgba(0, 0, 0, 0.41), 0 6px 20px 0 rgba(0,0,0,0.19);
-    color: #CCC59E;
-    border: 2px solid #393234;
+    color: $text;
+    border: 2px solid $background;
 
     width: 100%;
     height: 100%;
@@ -40,10 +40,10 @@ app-square{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #393234;
+    color: $secondary;
 
-    background-color: #CCC59E;
-    border:  2px  solid #212121;
+    background-color: $primary;
+    border:  2px  solid $text;
 
     box-shadow:  0 12px 32px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     font-size: 48px;
