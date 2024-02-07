@@ -113,6 +113,6 @@ export class BoardComponent implements OnInit{
 
   ngOnInit(): void {
   }
-
+  // I think I broke sum
   // protected readonly update = update;
 }
