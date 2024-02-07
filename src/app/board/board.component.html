@@ -3,11 +3,10 @@
   <div class="grid-container">
     <ng-container *ngFor="let tile of allTheTiles">
 <app-square
-
   (click)="addToSelection(tile.uniqueId)"
-[cardContent]="tile.toString()"
-[id]="tile.uniqueId"
-[squareUniqueId]="tile.uniqueId"
+  [cardContent]="tile.toString()"
+  [id]="tile.uniqueId"
+  [squareUniqueId]="tile.uniqueId"
 
 >
 
