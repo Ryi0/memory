@@ -37,38 +37,69 @@ import {update} from "@angular-devkit/build-angular/src/tools/esbuild/angular/co
 export class BoardComponent implements OnInit{
 
   private _clickIndex:1|2|3 =1 ;
-   selectedSquares = signal<SquareComponent[]>([]);
-   result = computed(()=>{
-     const squares = this.selectedSquares();
-     if (squares.length===2){
+   selectedSquares = signal<GameTile[]>([]);
+   // result = computed(()=>{
+   //   let squares = this.selectedSquares();
+   //   console.log("lengt is "+squares.length);
+   //   if (squares.length>=2){
+   //
+   //     if (():boolean=>{
+   //       const sameCardFlag = () => { //true if not the same card
+   //        return  squares[0].uniqueId!==squares[1].uniqueId;
+   //       }
+   //       const sameContentFlag = () => { //true if same content but different card
+   //         return squares[0].content===squares[1].content;
+   //       }
+   //        return sameCardFlag()&&sameContentFlag();
+   //     }){
+   //      console.log(`${squares} those are good`)
+   //       squares=[];
+   //        this.selectedSquares.update(()=>[])
+   //       return true;
+   //     }
+   //
+   //   }
+   //   return false;
+   //
+   // })
 
-       if (():boolean=>{
-         const sameCardFlag = () => { //true if not the same card
-          return  squares[0].squareUniqueId!==squares[1].squareUniqueId;
-         }
-         const sameContentFlag = () => { //true if same content but different card
-           return squares[0].cardContent===squares[1].cardContent;
-         }
-          return sameCardFlag()&&sameContentFlag();
-       }){
-        console.log(`${squares} those are good`)
-         return true;
-       }
+  result = computed(() => {
+    let a =false;
+    if (this.selectedSquares().length===2) {
+       a = this.selectedSquares()[0].content === this.selectedSquares()[1].content
 
-     }
-     return false;
+      return a;
+    }
+    return a
+  })
 
-   })
+  addToSelection(id:number){
+    let tmp = this.gameService.getCardById(id)
+    const mySquares = this.tmpTiles;
+    if (tmp){
+      if (mySquares.find((tyeule)=>tyeule===tmp)){
+        this.tmpTiles = [];
+      }
+      else this.tmpTiles.push(tmp)
+    }
+    console.log("this that tmptiles "+this.tmpTiles)
+    if (this.tmpTiles.length===2){
+      this.selectedSquares.update(value => this.tmpTiles);
+      this.tmpTiles=[];
+    }
+    //console.log(tmp)
+    console.log(this.selectedSquares())
+  }
   // get clickIndex():1|2|3{
   //   return this._clickIndex;
   // }
-    Tmpcard1: GameTile | undefined = undefined
-    Tmpcard2: GameTile | undefined = undefined
+  Tmpcard1: GameTile = new GameTile(-1);
+  Tmpcard2: GameTile = new GameTile(-2);
+  tmpTiles:GameTile[] = [];
+  componentTiles: SquareComponent[] = [];
 
   clickEventCardSelector(id:number) {
-     if (this.result()){
-       console.log("this is inside of the click event. it returned true")
-     }
+
       let tmp = this.gameService.getCardById(id)
     this._clickIndex++;
     console.log(id)
@@ -107,7 +138,7 @@ export class BoardComponent implements OnInit{
   allTheTiles:GameTile[]= [];
   gameService: GameService = inject(GameService)
 
-  constructor() {
+  constructor() { //reminder try to put constructor args in ngoninit
     this.allTheTiles = this.gameService.getAllCards();
   }
 
@@ -115,4 +146,5 @@ export class BoardComponent implements OnInit{
   }
   // I think I broke sum
   // protected readonly update = update;
+  protected readonly SquareComponent = SquareComponent;
 }

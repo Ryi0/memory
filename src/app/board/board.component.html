@@ -1,10 +1,21 @@
-<main>
+<h1 [innerText]="selectedSquares()"></h1>
+<h1 [innerHTML]="result()"></h1>
+  <div class="grid-container">
+    <ng-container *ngFor="let tile of allTheTiles">
 <app-square
-*ngFor="let tile of allTheTiles; let i= index"
+
+  (click)="addToSelection(tile.uniqueId)"
 [cardContent]="tile.toString()"
 [id]="tile.uniqueId"
 [squareUniqueId]="tile.uniqueId"
-(dblclick)="clickEventCardSelector(tile.uniqueId)"
-></app-square>
 
-</main>
+>
+
+<!--*ngFor="let tile of allTheTiles; let i= index"-->
+<!--[cardContent]="tile.toString()"-->
+<!--[id]="tile.uniqueId"-->
+<!--[squareUniqueId]="tile.uniqueId"-->
+<!--(dblclick)="clickEventCardSelector(tile.uniqueId)"-->
+</app-square>
+    </ng-container>
+  </div>
