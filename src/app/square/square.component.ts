@@ -4,8 +4,14 @@ import {Component, input, Input} from '@angular/core';
 @Component({
   selector: 'app-square',
   template: `
+    <div class="item" *ngIf="isHidden; then hide else unHide" [ngClass]="{'selectedItem':isSelected&&!isHidden, 'notSelected':!isSelected&&!isHidden, 'isHidden':isHidden}
+     ">
+
+
+    </div>
     <div class="item" [ngClass]="{'selectedItem':isSelected&&!isHidden, 'notSelected':!isSelected&&!isHidden, 'isHidden':isHidden}">
-      {{ cardContent }}
+      <ng-template    #hide> X </ng-template>
+      <ng-template  #unHide>{{ cardContent }}</ng-template>
     </div>
 
   `,

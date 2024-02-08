@@ -44,6 +44,7 @@ app-square{
   }
   .selectedItem:hover{
     background-color: $secondary;
+    transition-delay: 1s;
     transition: 0.3s;
   }
 
@@ -61,6 +62,7 @@ app-square{
 
 
     font-size: 48px;
+    transition-delay: 1s;
     transition: 0.5s;
   }
   .notSelected:hover{
@@ -72,7 +74,8 @@ app-square{
 
     background-color: $primary;
     border:  2px  solid $text;
-
+    transition-delay: 100ms;
+    transition: 0.5s;
     box-shadow:  0 12px 32px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     font-size: 48px;
     cursor: pointer;
@@ -84,7 +87,8 @@ app-square{
     background-color: $background;
     color: $background;
     border-color: $background ;
-    transition: 0.5s;
+    transition-delay: 10s;
+    transition: 1s;
   }
 
 
