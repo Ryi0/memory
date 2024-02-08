@@ -4,16 +4,11 @@ import {Component, input, Input} from '@angular/core';
 @Component({
   selector: 'app-square',
   template: `
-    <div class="item" *ngIf="isHidden; then hide else unHide" [ngClass]="{'selectedItem':isSelected&&!isHidden, 'notSelected':!isSelected&&!isHidden, 'isHidden':isHidden}
-     ">
-
-
+    <div class="item"  [ngClass]="{'selectedItem':isSelected&&!isHidden, 'notSelected':!isSelected&&!isHidden, 'isHidden':isHidden}  ">
+      <div *ngIf="!isSelected; then hide else unHide"></div>
+      <ng-template #hide> <ng-container>X</ng-container> </ng-template>
+      <ng-template #unHide><ng-container>{{ cardContent }}</ng-container></ng-template>
     </div>
-    <div class="item" [ngClass]="{'selectedItem':isSelected&&!isHidden, 'notSelected':!isSelected&&!isHidden, 'isHidden':isHidden}">
-      <ng-template    #hide> X </ng-template>
-      <ng-template  #unHide>{{ cardContent }}</ng-template>
-    </div>
-
   `,
   styleUrl: './square.component.scss'
 })
@@ -23,15 +18,4 @@ export class SquareComponent {
   @Input() squareUniqueId:number|undefined;
   @Input() isSelected:boolean = false;
   @Input() isHidden:boolean=false;
-  // uniqueId:number = 0; //try to use it only as gui
-  //
-  // private static id:number = 0;
-  //
-  // ngOnInit(): void {
-  //   this.uniqueId = SquareComponent.id;
-  //   SquareComponent.id++;
-  // }
-
-
-
 }

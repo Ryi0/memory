@@ -6,30 +6,6 @@ import GenerateCommandModule from "@angular/cli/src/commands/generate/cli";
 import {update} from "@angular-devkit/build-angular/src/tools/esbuild/angular/compilation/parallel-worker";
 import * as timers from "timers";
 
-// class tile {
-//   uniqueId:number = 0; //try to use it only as gui
-//
-//   private static id:number = 0;
-//   public cardNum;
-//   constructor(cardNum:number) {
-//     console.log()
-//     this.cardNum = cardNum;
-//     this.uniqueId = tile.id;
-//     tile.id++;
-//     console.log(`a new card has been created. id is : ${this.uniqueId}`)
-//   }
-//
-//
-//   toString(){
-//     return this.cardNum;
-//   }
-//
-//
-//   // uniqueId:number = 0;
-//   // id: this.uniqueId,
-//   // cardNum:0,
-// }
-
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -82,40 +58,43 @@ unSetSelected(){
     }
   }
 
+  resetGame(){
+    this.tmpTiles = [];
+    this.selectedSquares.update(()=>[])
+    this.allTheTiles.forEach(value =>{
+      value.hidden = false;
+      value.selectedProp = false;
+    })
+
+  }
   addToSelection(id:number){
     let tmp = this.gameService.getCardById(id)
 
     const mySquares = this.tmpTiles;
     if (tmp){
-    //  tmp.selectedProp = true;
       if (mySquares.find((tyeule)=>tyeule===tmp)){
-       // tmp.selectedProp = false;
         this.unSetSelected();
         this.tmpTiles = [];
-       // this.selectedSquares.update(value => this.tmpTiles);
       }
       else {
-
         this.tmpTiles.push(tmp)
       }
     }
     console.log("this that tmptiles "+this.tmpTiles)
     if (this.tmpTiles.length===2){
      this.selectedSquares.update(value => this.tmpTiles);
-      this.removeTile();
+     setTimeout(()=>{
+       this.removeTile();
+     },500  )
+
       setTimeout(()=>{
         this.unSetSelected()
         this.tmpTiles=[];
-      },400)
+      },500)
     }
-    //console.log(tmp)
-    // console.log("this that magic shit fr fr : " +this.selectedSquares())
-    // console.log("ligma squares : "+mySquares)
     this.setSelected();
   }
   tmpTiles:GameTile[] = [];
-
-
 
   allTheTiles:GameTile[]= [];
   gameService: GameService = inject(GameService)

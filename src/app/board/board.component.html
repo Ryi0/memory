@@ -1,8 +1,12 @@
 <h1 [innerText]="selectedSquares()"></h1>
 <h1 [innerHTML]="result()"></h1>
+
   <div class="grid-container">
+
     <ng-container *ngFor="let tile of allTheTiles">
+
 <app-square
+
   (click)="addToSelection(tile.uniqueId)"
   [cardContent]="tile.toString()"
   [id]="tile.uniqueId"
@@ -11,5 +15,7 @@
   [isHidden]="tile.hidden"
 >
 </app-square>
+
     </ng-container>
+    <button (click)="resetGame()">reset</button>
   </div>
