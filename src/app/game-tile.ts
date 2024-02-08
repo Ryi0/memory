@@ -5,7 +5,9 @@ export class GameTile implements Tile{
   content: string;
   uniqueId: number;
   selectedProp:boolean;
+  hidden:boolean;
   constructor(cardNum:number) {
+    this.hidden=false;
     this.selectedProp = false;
     this.content= String(cardNum);
     this.uniqueId=GameTile._id;

@@ -1,23 +1,26 @@
+$size : 120px;
 main {
-  align-items: center;
-  align-content: center;
-  display: grid;
-  grid-template-columns: 200px 200px 200px;
-  grid-gap: 10px;
+
+  //align-items: center;
+  //align-content: center;
+  //display: grid;
+  //grid-template-columns: 200px 200px 200px;
+  //grid-gap: 10px;
 
 
 }
 .grid-container{
+
   align-items: center;
   align-content: center;
   display: grid;
-  grid-template-columns: 200px 200px 200px;
+  grid-template-columns: $size $size $size;
   grid-gap: 10px;
 
 }
 
 app-square{
  // border: 1px gray solid;
-  height: 200px;
+  height: $size;
 
 }

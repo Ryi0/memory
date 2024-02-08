@@ -53,6 +53,20 @@ export class BoardComponent implements OnInit{
     }
     return a
   })
+
+
+  removeTile(){
+    if (this.result()){
+      this.selectedSquares().forEach(value => {
+         const index:number =  this.allTheTiles.indexOf(value)
+         const tile =  this.allTheTiles.find(value1 => value===value);
+         tile? value.hidden=true:tile;
+         // this.allTheTiles.splice(index, 1)
+          //this.allTheTiles.at(index).hidden=true;
+      })
+    }
+  }
+
 unSetSelected(){
     if (this.tmpTiles){
       this.tmpTiles.forEach(value => {
@@ -83,25 +97,21 @@ unSetSelected(){
       else {
 
         this.tmpTiles.push(tmp)
-
       }
     }
     console.log("this that tmptiles "+this.tmpTiles)
     if (this.tmpTiles.length===2){
      this.selectedSquares.update(value => this.tmpTiles);
-
+      this.removeTile();
       setTimeout(()=>{
         this.unSetSelected()
         this.tmpTiles=[];
       },400)
     }
-
     //console.log(tmp)
     // console.log("this that magic shit fr fr : " +this.selectedSquares())
     // console.log("ligma squares : "+mySquares)
     this.setSelected();
-
-
   }
   tmpTiles:GameTile[] = [];
 
