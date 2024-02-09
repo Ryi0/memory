@@ -1,13 +1,18 @@
-<h1 [innerText]="selectedSquares()"></h1>
-<h1 [innerHTML]="result()"></h1>
+<!--<h1 [innerText]="selectedSquares()"></h1>-->
+<!--<h1 [innerHTML]="result()"></h1>-->
+<h2 [innerHTML]= "'Player one :' +playerOneCount "></h2>
+<h2 [innerHTML]= "'Player two :' +playerTwoCount "></h2>
 
+<div *ngIf="playerOneToPlay then thenBlock else elseBlock"></div>
+<div class="">
+<ng-template #thenBlock>Player One to play</ng-template>
+<ng-template #elseBlock>Player Two to play</ng-template>
+</div>
   <div class="grid-container">
-
     <ng-container *ngFor="let tile of allTheTiles">
-
 <app-square
 
-  (click)="addToSelection(tile.uniqueId)"
+  (click)="clickHandler(tile.uniqueId)"
   [cardContent]="tile.toString()"
   [id]="tile.uniqueId"
   [squareUniqueId]="tile.uniqueId"

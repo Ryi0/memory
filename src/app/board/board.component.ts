@@ -12,18 +12,43 @@ import * as timers from "timers";
   styleUrl: './board.component.scss'
 })
 export class BoardComponent implements OnInit{
+  private static playerOneCount: number;
+  private static playerTwoCount: number;
 
 clickHandler(id:number){
-  setTimeout(()=>{
-    this.addToSelection(id);
-  },500)
-
+if(this.onFroze)
+  return
+    if(!this.onFroze){
+      this.addToSelection(id);
+      //this.onFroze = true;
+    }
 }
 
+  playerOneToPlay:boolean = true;
+  playerOneCount:number = 0;
+  playerTwoCount:number = 0;
+
+incPlayer(){
+  if (this.playerOneToPlay){
+    this.playerOneCount++
+  }
+  else this.playerTwoCount++;
+}
+  // incPlayerOne(){
+  //   this.playerOneCount++;
+  // }
+  // incPlayerTwo(){
+  //   this.playerTwoCount++;
+  // }
+
+resetPlayers(){
+  this.playerTwoCount = 0;
+  this.playerOneCount = 0;
+  this.playerOneToPlay = true;
+}
 
   private _clickIndex:1|2|3 =1 ;
   selectedSquares = signal<GameTile[]>([]);
-
   result = computed(() => {
     let a =false;
     if (this.selectedSquares().length===2) {
@@ -38,15 +63,13 @@ clickHandler(id:number){
     return a
   })
 
-
   removeTile(){
-    if (this.result()){
+    if (this.result()){ //could probably add here that depending on what player to play give points to that player or opposite player idk logic seems weird
+      this.incPlayer();
       this.selectedSquares().forEach(value => {
          const index:number =  this.allTheTiles.indexOf(value)
          const tile =  this.allTheTiles.find(value1 => value===value);
          tile? value.hidden=true:tile;
-         // this.allTheTiles.splice(index, 1)
-          //this.allTheTiles.at(index).hidden=true;
       })
     }
   }
@@ -67,6 +90,7 @@ unSetSelected(){
   }
 
   resetGame(){
+    this.resetPlayers();
     this.tmpTiles = [];
     this.selectedSquares.update(()=>[])
     this.allTheTiles.forEach(value =>{
@@ -80,11 +104,10 @@ unSetSelected(){
   }
   onFroze:boolean = false;
   addToSelection(id:number){
-    if(this.gameService.getCardById(id)?.hidden){
+    if(this.gameService.getCardById(id)?.hidden){ // problem here is that this will return false if card is undefined
       return;
     }
     let tmp = this.gameService.getCardById(id)
-
     const mySquares = this.tmpTiles;
     if (tmp){
       if (mySquares.find((tyeule)=>tyeule===tmp)){
@@ -97,20 +120,31 @@ unSetSelected(){
     }
     console.log("this that tmptiles "+this.tmpTiles)
     if (this.tmpTiles.length===2){
-     this.selectedSquares.update(value => this.tmpTiles);
-     setTimeout(()=>{
-       this.removeTile();
-     },500)
+      if(this.onFroze)
+        return
+      //this.incPlayer();
+      this.playerOneToPlay=!this.playerOneToPlay;
+      if(!this.onFroze){
+        this.onFroze = true;
+        this.selectedSquares.update(value => this.tmpTiles);
 
+        setTimeout(()=>{
+          this.removeTile();
+          //this.onFroze = false;
+          this.unSetSelected()
+          this.tmpTiles=[];
+        },500)
+
+      }
       setTimeout(()=>{
-        this.unSetSelected()
-        this.tmpTiles=[];
+        this.onFroze=false;
       },500)
+      //this.onFroze=true;
+
     }
       this.setSelected();
   }
   tmpTiles:GameTile[] = [];
-
   allTheTiles:GameTile[]= [];
   gameService: GameService = inject(GameService)
   constructor() { //reminder try to put constructor args in ngoninit
@@ -130,7 +164,14 @@ unSetSelected(){
   ngOnInit(): void {
     this.shuffle()
   }
+
+  public static getScores(){
+    return [this.playerOneCount, this.playerTwoCount];
+  }
+
   // I think I broke sum
   // protected readonly update = update;
   protected readonly SquareComponent = SquareComponent;
+
+
 }

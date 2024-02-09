@@ -1,0 +1,29 @@
+.topMenu{
+  ul{
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+  }
+  li{
+
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 30px 300px;
+    text-decoration: none;
+
+  }
+}
+.myHome{
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  overflow: hidden;
+  padding: 0 100px 0 0;
+}
+
