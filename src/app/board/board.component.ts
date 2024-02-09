@@ -13,6 +13,14 @@ import * as timers from "timers";
 })
 export class BoardComponent implements OnInit{
 
+clickHandler(id:number){
+  setTimeout(()=>{
+    this.addToSelection(id);
+  },500)
+
+}
+
+
   private _clickIndex:1|2|3 =1 ;
   selectedSquares = signal<GameTile[]>([]);
 
@@ -65,9 +73,16 @@ unSetSelected(){
       value.hidden = false;
       value.selectedProp = false;
     })
+    setTimeout(()=>{
+      this.shuffle();
+    }, 500)
 
   }
+  onFroze:boolean = false;
   addToSelection(id:number){
+    if(this.gameService.getCardById(id)?.hidden){
+      return;
+    }
     let tmp = this.gameService.getCardById(id)
 
     const mySquares = this.tmpTiles;
@@ -85,14 +100,14 @@ unSetSelected(){
      this.selectedSquares.update(value => this.tmpTiles);
      setTimeout(()=>{
        this.removeTile();
-     },500  )
+     },500)
 
       setTimeout(()=>{
         this.unSetSelected()
         this.tmpTiles=[];
       },500)
     }
-    this.setSelected();
+      this.setSelected();
   }
   tmpTiles:GameTile[] = [];
 
@@ -101,8 +116,19 @@ unSetSelected(){
   constructor() { //reminder try to put constructor args in ngoninit
     this.allTheTiles = this.gameService.getAllCards();
   }
+   shuffle() { //stack overflow ngl https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+    let currentIndex = this.allTheTiles.length,  randomIndex;
 
+    while (currentIndex > 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [this.allTheTiles[currentIndex], this.allTheTiles[randomIndex]] = [
+        this.allTheTiles[randomIndex], this.allTheTiles[currentIndex]];
+    }
+    //return this.allTheTiles;
+  }
   ngOnInit(): void {
+    this.shuffle()
   }
   // I think I broke sum
   // protected readonly update = update;
